@@ -58,6 +58,18 @@ fn format(hex_string: &str) -> String {
         }
     }
 
+    // check if we are on the last line
+    if count % 32 != 0 {
+        let sliced = &hex_string[lines * 32..];
+        let remaining = 32 - sliced.len();
+        for _ in 0..remaining {
+            spaced_string.push_str(" ");
+        }
+        spaced_string += "    |";
+        spaced_string += &hex_to_ascii(sliced);
+        spaced_string += "|";
+    }
+
     // Remove the trailing space, if any
     if spaced_string.ends_with(' ') {
         spaced_string.pop();
