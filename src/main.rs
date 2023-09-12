@@ -44,10 +44,16 @@ fn format(hex_string: &str) -> String {
             spaced_string.push(c1);
             spaced_string.push(c2);
             count += 2;
+
+            // after 8 bytes
+            if count % 16 == 0 && count % 32 != 0 {
+                spaced_string += " ";
+            }
+
             // end of line
             if count % 32 == 0 {
                 let sliced = &hex_string[lines * 32..(lines + 1) * 32];
-                spaced_string += "    |";
+                spaced_string += "  |";
                 spaced_string += &hex_to_ascii(sliced);
                 spaced_string += "|";
                 spaced_string.push('\n'); // Add a newline every 32 characters
@@ -60,14 +66,14 @@ fn format(hex_string: &str) -> String {
 
     // check if we are on the last line
     if count % 32 != 0 {
-        let line_length = 47;
+        let line_length = 48;
         let sliced = &hex_string[lines * 32..];
         let remaining = line_length - (sliced.len() + (sliced.len() / 2));
 
         // Add spaces to align the last line
         spaced_string += &" ".repeat(remaining);
 
-        spaced_string += "    |";
+        spaced_string += "  |";
         spaced_string += &hex_to_ascii(sliced).trim_end();
         spaced_string += "|";
     }
