@@ -2,6 +2,8 @@ use std::fs::File;
 use std::io::Read;
 extern crate hex;
 
+const FILE_NAME: &str = "binary";
+
 fn read_file(path: &str) -> String {
     let mut file = File::open(path).expect("File not found");
     let mut buffer = Vec::new();
@@ -39,8 +41,9 @@ fn format(hex_string: &str) -> String {
             count += 2;
             if count % 32 == 0 {
                 let sliced = &hex_string[lines * 32..(lines + 1) * 32];
-                spaced_string += "    ";
+                spaced_string += "    |";
                 spaced_string += &hex_to_ascii(sliced);
+                spaced_string += "|";
                 spaced_string.push('\n'); // Add a newline every 32 characters
                 lines += 1;
             } else {
@@ -58,6 +61,6 @@ fn format(hex_string: &str) -> String {
 }
 
 fn main() {
-    let hex_string = read_file("binary");
+    let hex_string = read_file(FILE_NAME);
     println!("{}", format(&hex_string));
 }
