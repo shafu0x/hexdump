@@ -60,8 +60,9 @@ fn format(hex_string: &str) -> String {
 
     // check if we are on the last line
     if count % 32 != 0 {
+        let line_length = 47;
         let sliced = &hex_string[lines * 32..];
-        let remaining = 32 - sliced.len();
+        let remaining = line_length - (sliced.len() + (sliced.len() / 2));
 
         // Add spaces to align the last line
         spaced_string += &" ".repeat(remaining);
