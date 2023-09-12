@@ -12,7 +12,7 @@ fn read_file(path: &str) -> String {
 fn hex_to_ascii(hex_string: &str) -> String {
     let mut ascii_string = String::new();
     let mut chars = hex_string.chars();
-    
+
     while let Some(c1) = chars.next() {
         if let Some(c2) = chars.next() {
             if let Ok(hex_value) = u8::from_str_radix(&format!("{}{}", c1, c2), 16) {
@@ -27,7 +27,6 @@ fn hex_to_ascii(hex_string: &str) -> String {
 }
 
 fn format(hex_string: &str) -> String {
-    println!("Hex string: {}", hex_to_ascii(hex_string));
     let mut spaced_string = String::new();
     let mut chars = hex_string.chars();
     let mut count = 0;
@@ -59,6 +58,6 @@ fn format(hex_string: &str) -> String {
 }
 
 fn main() {
-    let hex_string = read_file("test");
+    let hex_string = read_file("binary");
     println!("{}", format(&hex_string));
 }
