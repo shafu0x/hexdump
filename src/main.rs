@@ -62,11 +62,12 @@ fn format(hex_string: &str) -> String {
     if count % 32 != 0 {
         let sliced = &hex_string[lines * 32..];
         let remaining = 32 - sliced.len();
-        for _ in 0..remaining {
-            spaced_string.push_str(" ");
-        }
+
+        // Add spaces to align the last line
+        spaced_string += &" ".repeat(remaining);
+
         spaced_string += "    |";
-        spaced_string += &hex_to_ascii(sliced);
+        spaced_string += &hex_to_ascii(sliced).trim_end();
         spaced_string += "|";
     }
 
