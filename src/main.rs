@@ -36,9 +36,15 @@ fn format(hex_string: &str) -> String {
 
     while let Some(c1) = chars.next() {
         if let Some(c2) = chars.next() {
+            // start of line
+            if count % 32 == 0 {
+                spaced_string += &format!("{:0width$X}", lines * 16, width = 8);
+                spaced_string += "  ";
+            }
             spaced_string.push(c1);
             spaced_string.push(c2);
             count += 2;
+            // end of line
             if count % 32 == 0 {
                 let sliced = &hex_string[lines * 32..(lines + 1) * 32];
                 spaced_string += "    |";
